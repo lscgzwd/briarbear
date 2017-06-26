@@ -23,7 +23,6 @@
 
 namespace yiilog\base;
 
-use common\helpers\Trace;
 use yii\helpers\ArrayHelper;
 use yii\log\Logger;
 
@@ -165,7 +164,7 @@ trait TargetTrait
             $result['trace'] = $message[4];
         }
         // 定义trackid , 方便跟踪请求日志链条
-        $result['trackId'] = Trace::getTraceID();
+        $result['trackId'] = \Start::$instance->logTrackId;
         // 加入服务器名称
         $result['server'] = gethostname();
 

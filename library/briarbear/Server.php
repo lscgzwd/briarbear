@@ -162,7 +162,7 @@ class Server extends Object
                             $tick++;
                         }
                         // 线上可能存在脏进程，强杀一次
-                        exec('ps axu | grep ' . $this->serverName . ' | grep -v grep | awk \'{print $2}\'| xargs kill -9');
+                        // exec('ps axu | grep ' . $this->serverName . ' | grep -v grep | awk \'{print $2}\'| xargs kill -9');
                     }
                     $this->startListen();
                     break;

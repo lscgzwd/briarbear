@@ -18,8 +18,6 @@
 
 namespace yiilog;
 
-use common\helpers\Trace;
-
 class EmailTarget extends \yii\log\EmailTarget
 {
     /**
@@ -34,7 +32,7 @@ class EmailTarget extends \yii\log\EmailTarget
         }
         $messages = array_map([$this, 'formatMessage'], $this->messages);
         // 定义trackid , 方便跟踪请求日志链条
-        $trackId = Trace::getTraceID();
+        $trackId = \Start::$instance->logTrackId;
 
         array_unshift($messages, 'server:' . gethostname(), 'trackId:' . $trackId);
         $body = wordwrap(implode("\n", $messages), 70);

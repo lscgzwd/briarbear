@@ -17,8 +17,8 @@ define('VENDOR_PATH', ROOT_PATH . '/vendor');
 // briar bear framework directory
 define('BRIARBEAR_PATH', dirname(dirname(ROOT_PATH)) . '/library/briarbear/');
 // 配置分离，从OP管理的配置中获取配置
-define('JDB_CONF_FILE', '/data/conf/storage/server.ini');
-define('START_CRONTAB', false);
+define('JDB_CONF_FILE', '/data/conf/qiye/server.ini');
+define('START_CRONTAB', true);
 error_reporting(E_ALL);
 
 require VENDOR_PATH . '/yii2-swoole/Start.php';
