@@ -34,4 +34,6 @@ return array(
     'Codeception\\Extension\\'              => array($vendorDir . '/codeception/base/ext'),
     'Codeception\\'                         => array($vendorDir . '/codeception/base/src/Codeception'),
     'Overtrue\\Pinyin\\'                    => [$vendorDir . '/overtrue/pinyin/src'],
+    'yiiswoole\\'                           => [$vendorDir . '/yii2-swoole'],
+    'yiilog\\'                              => [$vendorDir . '/yii2-log'],
 );

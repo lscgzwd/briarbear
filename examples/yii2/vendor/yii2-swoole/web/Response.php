@@ -58,7 +58,7 @@ class Response extends \yii\web\Response
     public function send()
     {
         if ($this->isSent) {
-            return;
+            return $this->response;
         }
 
         $this->trigger(self::EVENT_BEFORE_SEND);

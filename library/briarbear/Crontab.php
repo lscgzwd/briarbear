@@ -64,8 +64,15 @@ class Crontab extends Object
             'namespace' => $this->zookeeperNamespace,
             'zkType'    => $this->zkType,
         ]);
-        \BriarBear::info('crontab register zookeeper');
-        $this->zk->registerSlave($this->ipAddress);
+        // delay to connect to zookeeper, because after stop, the node may be not clear.
+        // zookeeper的临时节点在服务停止后不是立即删除，而是根据心跳时间发现后才会删除，为了防止本次重启后新建节点发现节点存在，没有建立，而上次断开
+        // 后心跳检测到后把节点删除，导致没有节点存在，此处延迟2分钟后再向zookeeper注册
+        while (true) {
+            if (swoole_timer_after(120000, [$this, 'registerSlave'])) {
+                break;
+            }
+        }
+
         // add timer could return false
         while (true) {
             if (swoole_timer_tick(60000, [$this, 'loadCron'])) {
@@ -77,6 +84,11 @@ class Crontab extends Object
                 break;
             }
         }
+    }
+    public function registerSlave()
+    {
+        \BriarBear::info('crontab register zookeeper');
+        $this->zk->registerSlave($this->ipAddress);
     }
 
     /**

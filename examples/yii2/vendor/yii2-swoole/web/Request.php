@@ -75,17 +75,7 @@ class Request extends \yii\web\Request
     public function getRawBody()
     {
         if ($this->_rawBody === null) {
-            switch ($this->getMethod()) {
-                case 'POST':
-                    $this->_rawBody = file_get_contents($this->request->getPostRawTempFile());
-                    break;
-                case 'PUT':
-                    $this->_rawBody = file_get_contents($this->request->getPutRawTempFile());
-                    break;
-                default:
-                    $this->_rawBody = $this->request->getRawContent();
-            }
-
+            $this->_rawBody = $this->request->getRawContent();
         }
 
         return $this->_rawBody;
