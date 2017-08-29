@@ -1,8 +1,8 @@
 {
-    "name": "BriarBear",
+    "name": "briarbear",
     "type": "library",
     "description": "BriarBear",
-    "keywords": ["BriarBear", "swoole", "http", "lscgzwd"],
+    "keywords": ["BriarBear", "swoole", "http", "lscgzwd","yii2"],
     "license": "Apache License 2.0",
     "authors": [
         {
