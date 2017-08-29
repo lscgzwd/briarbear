@@ -1,0 +1,25 @@
+{
+    "name": "BriarBear",
+    "type": "library",
+    "description": "BriarBear",
+    "keywords": ["BriarBear", "swoole", "http", "lscgzwd"],
+    "license": "Apache License 2.0",
+    "authors": [
+        {
+            "name": "BriarBear",
+            "email": "lusc@jiedaibao.com",
+            "homepage": "https://github.com/lscgzwd"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BriarBear\\": "src/"
+        },
+        "files": []
+    },
+    "extra": {
+    }
+}
