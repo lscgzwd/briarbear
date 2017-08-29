@@ -1,13 +1,13 @@
 {
-    "name": "briarbear",
+    "name": "briarbear/briarbear",
     "type": "library",
-    "description": "BriarBear",
+    "description": "BriarBear, a framework to easy integration swoole and php frameworks",
     "keywords": ["BriarBear", "swoole", "http", "lscgzwd","yii2"],
     "license": "Apache License 2.0",
     "authors": [
         {
-            "name": "BriarBear",
-            "email": "lusc@jiedaibao.com",
+            "name": "Lu ShunCheng",
+            "email": "lscgzwd@gmail.com",
             "homepage": "https://github.com/lscgzwd"
         }
     ],
