@@ -332,11 +332,14 @@ class Server extends Object
         // start crontab
         if (is_array($this->crontab) && (!defined('START_CRONTAB') || START_CRONTAB === true)) {
             \BriarBear\BriarBear::info('begin to start crontab');
-            $this->crontab['ipAddress'] = $this->serverIP;
-            $this->crontab['class']     = '\BriarBear\Crontab';
-            $this->crontab              = \BriarBear\BriarBear::createObject($this->crontab);
-            $bs                         = $this;
-            $process                    = new Process(function ($process) use ($bs) {
+            $this->crontab['ipAddress']          = $this->serverIP;
+            $this->crontab['class']              = '\BriarBear\Crontab';
+            $crontabZookeeperNamespace           = $this->crontab['zookeeperNamespace'] ?? $this->serverName . '-crontab';
+            $this->crontab['zookeeperNamespace'] = $crontabZookeeperNamespace;
+
+            $this->crontab = \BriarBear\BriarBear::createObject($this->crontab);
+            $bs            = $this;
+            $process       = new Process(function ($process) use ($bs) {
                 $bs->crontab->run($bs);
             });
             $this->crontabProcess = $process;
