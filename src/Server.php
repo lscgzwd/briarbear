@@ -539,21 +539,21 @@ class Server extends Object
                     }
                     $this->checkContentLength($buffer->getAcceptBodyLength());
                     if (isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] == $buffer->getAcceptBodyLength()) {
-                        if ($_SERVER['CONTENT_TYPE'] == 'application/x-www-form-urlencoded' || strpos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') === 0) {
+                        if (isset($_SERVER['CONTENT_TYPE']) && ($_SERVER['CONTENT_TYPE'] == 'application/x-www-form-urlencoded' || strpos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') === 0)) {
                             if (substr_count($buffer->getRequest()->getRawContent(), '&') > $this->httpMaxInputVars) {
                                 throw new InvalidCallException('Too Much Post Items', 400);
                             }
                             parse_str($buffer->getRequest()->getRawContent(), $_POST);
                             $_REQUEST = ArrayHelper::merge($_REQUEST, $_POST);
                             $buffer->getRequest()->setPost($_POST);
-                        } elseif ($_SERVER['CONTENT_TYPE'] == 'multipart/form-data') {
+                        } elseif (isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_TYPE'] == 'multipart/form-data') {
                             if (substr_count($buffer->getRequest()->getRawContent(), $this->httpPostBoundary) > $this->httpMaxInputVars) {
                                 throw new InvalidCallException('Too Much Post Items', 400);
                             }
                             $this->parseUploadFiles($buffer->getRequest()->getRawContent(), $this->httpPostBoundary);
                             $_REQUEST = ArrayHelper::merge($_REQUEST, $_POST);
                             $buffer->getRequest()->setPost($_POST);
-                        } elseif ($_SERVER['CONTENT_TYPE'] == 'application/json') {
+                        } elseif (isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_TYPE'] == 'application/json') {
                             $_POST    = ArrayHelper::merge($_POST, json_decode($buffer->getRequest()->getRawContent(), true));
                             $_REQUEST = ArrayHelper::merge($_REQUEST, $_POST);
                             $buffer->getRequest()->setPost($_POST);
