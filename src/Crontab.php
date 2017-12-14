@@ -26,6 +26,10 @@ class Crontab extends Object
     public $ipAddress          = null;
     public $zkType             = Zookeeper::TYPE_MASTER_SLAVE;
     /**
+     * @var callable null
+     */
+    public $beforeLoadCron     = null;
+    /**
      * @var array
      * [
      *      [
@@ -98,7 +102,11 @@ class Crontab extends Object
     public function loadCron()
     {
         try {
-            if ($this->zk->isMaster === true && $this->server->swooleServer !== null) {
+            $load = true;
+            if (is_callable($this->beforeLoadCron)) {
+                $load = call_user_func($this->beforeLoadCron);
+            }
+            if ($load && $this->zk->isMaster === true && $this->server->swooleServer !== null) {
                 \BriarBear\BriarBear::info('master_load_cron');
                 $time = time();
                 foreach ($this->cronList as $key => $cron) {
