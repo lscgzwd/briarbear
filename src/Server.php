@@ -424,6 +424,8 @@ class Server extends Object
     public function onTask(\Swoole\Server $server, int $taskId, int $workerId, $data)
     {
         if (isset($this->callback['task']) && is_callable($this->callback['task'])) {
+            $_SERVER['REQUEST_TIME']       = time();
+            $_SERVER['REQUEST_TIME_FLOAT'] = microtime(true);
             call_user_func_array($this->callback['task'], [$this, $server, $workerId, $taskId, $data]);
         }
     }
